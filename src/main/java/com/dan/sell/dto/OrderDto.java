@@ -1,59 +1,47 @@
-package com.dan.sell.entity;
+package com.dan.sell.dto;
 
+import com.dan.sell.entity.OrderDetail;
 import com.dan.sell.enums.OrderStatusEnum;
 import com.dan.sell.enums.PayStatusEnum;
-import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-@Entity
-@DynamicUpdate
-@Table(indexes = @Index(columnList = ("buyerOpenid"),name="idx_buyer_openid",unique=false))
-public class OrderMaster {
-
+public class OrderDto {
     /** 订单id */
-    @Id
-    @Column(columnDefinition = "varchar(32) not null")
     private String orderId;
 
     /** 买家名字 */
-    @Column(columnDefinition = "varchar(32) not null comment '买家名字'")
     private String buyerName;
 
     /** 买家电话 */
-    @Column(columnDefinition = "varchar(32) not null comment '买家电话'")
     private String buyerPhone;
 
     /** 买家地址 */
-    @Column(columnDefinition = "varchar(128) not null comment '买家地址'")
     private String buyerAddress;
 
     /** 买家微信Openid */
-    @Column(columnDefinition = "varchar(64) not null comment '买家微信openid'")
     private String buyerOpenid;
 
     /** 订单总金额 */
-    @Column(columnDefinition = "decimal(8,2) not null comment '订单总金额'")
     private BigDecimal orderAmount;
 
     /** 订单状态，默认为0新下单 */
-    @Column(columnDefinition = "tinyint(3) not null default '0' comment '订单状态, 默认为新下单'")
-    private Integer orderStatus = OrderStatusEnum.NEW.getCode();
+    private Integer orderStatus;
 
     /** 支付状态，默认为0未支付 */
-    @Column(columnDefinition = "tinyint(3) not null default '0' comment '支付状态, 默认未支付'")
-    private Integer payStatus = PayStatusEnum.WAIT.getCode();
+    private Integer payStatus;
 
     /** 创建时间 */
-    @Column(columnDefinition = "timestamp not null default current_timestamp comment '创建时间'")
     private Date createTime;
 
     /** 更新时间 */
-    @Column(columnDefinition = "timestamp not null default current_timestamp on update current_timestamp comment '修改时间'")
     private Date updateTime;
+
+    private List<OrderDetail> orderDetailList;
 
     public String getOrderId() {
         return orderId;
@@ -133,5 +121,13 @@ public class OrderMaster {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public List<OrderDetail> getOrderDetailList() {
+        return orderDetailList;
+    }
+
+    public void setOrderDetailList(List<OrderDetail> orderDetailList) {
+        this.orderDetailList = orderDetailList;
     }
 }
