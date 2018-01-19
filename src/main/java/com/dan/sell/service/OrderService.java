@@ -10,7 +10,7 @@ import java.util.List;
 public interface OrderService {
 
     /** 创建订单 */
-    OrderDto Create(OrderDto orderDto);
+    OrderDto create(OrderDto orderDto);
 
     /** 查询单个订单 */
     OrderDto findOne(String orderId);

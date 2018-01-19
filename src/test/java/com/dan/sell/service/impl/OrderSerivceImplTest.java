@@ -49,7 +49,7 @@ public class OrderSerivceImplTest {
         orderDetailList.add(orderDetail2);
 
         orderDto.setOrderDetailList(orderDetailList);
-        OrderDto result = orderSerivce.Create(orderDto);
+        OrderDto result = orderSerivce.create(orderDto);
         Assert.assertNotNull(result);
     }
 

@@ -47,7 +47,7 @@ public class OrderSerivceImpl implements OrderService {
 
     @Override
     @Transactional
-    public OrderDto Create(OrderDto orderDto) {
+    public OrderDto create(OrderDto orderDto) {
 
         String orderId = KeyUtil.genUniqueKey();
         BigDecimal orderAmount = new BigDecimal(0);
@@ -72,8 +72,9 @@ public class OrderSerivceImpl implements OrderService {
 
         // 3. 写入订单数据库(orderMaster)
         OrderMaster orderMaster = new OrderMaster();
+        orderDto.setOrderId(orderId);
         BeanUtils.copyProperties(orderDto,orderMaster);
-        orderMaster.setOrderId(orderId);
+//        orderMaster.setOrderId(orderId);
         orderMaster.setOrderAmount(orderAmount);
         orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
         orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode());
