@@ -3,7 +3,9 @@ package com.dan.sell.dto;
 import com.dan.sell.entity.OrderDetail;
 import com.dan.sell.enums.OrderStatusEnum;
 import com.dan.sell.enums.PayStatusEnum;
+import com.dan.sell.utils.EnumUtil;
 import com.dan.sell.utils.serializer.Date2LongSerializer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -136,5 +138,15 @@ public class OrderDto {
 
     public void setOrderDetailList(List<OrderDetail> orderDetailList) {
         this.orderDetailList = orderDetailList;
+    }
+
+    @JsonIgnore
+    public OrderStatusEnum getOrderStatusEnum(){
+        return EnumUtil.getByCode(orderStatus, OrderStatusEnum.class);
+    }
+
+    @JsonIgnore
+    public PayStatusEnum getPayStatusEnum(){
+        return EnumUtil.getByCode(payStatus, PayStatusEnum.class);
     }
 }

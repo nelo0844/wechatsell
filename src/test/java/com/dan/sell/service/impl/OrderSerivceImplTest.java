@@ -93,4 +93,11 @@ public class OrderSerivceImplTest {
         Assert.assertEquals(ORDER_ID,result.getOrderId());
         Assert.assertEquals(PayStatusEnum.SUCCESS.getCode(),result.getPayStatus());
     }
+
+    @Test
+    public void list(){
+        PageRequest pageRequest = new PageRequest(0,3);
+        Page<OrderDto> orderDtoPage = orderSerivce.findList(pageRequest);
+        Assert.assertNotEquals(0,orderDtoPage.getTotalElements());
+    }
 }
